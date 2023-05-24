@@ -150,6 +150,41 @@ td {
     background-color: #fefefb;
     width: 48.5%;
     border-radius: 0.5rem;
+    color: #212c27;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 8fr;
+    justify-items: center;
+}
+
+.button {
+    align-self: center;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    background-color: #3d185c;
+    color: #fefefb;
+    width: 70%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.squadList {
+    width: 85%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    
+}
+
+.squadList h3 {
+    text-align: center;
+    border-bottom: 1px solid #212c27;
+    padding-bottom: 0.25rem;
+    font-weight: bold;
 }
 
 /* koniec rozwijanej sekcji */
