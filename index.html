@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Tabela Premier League</title>
+        <!-- pobieranie daty z api -->
+        <!-- <script src="script/getDataFromAPI.js" async></script> -->
+        <!-- wczytywanie zapisanych danych z plików json -->
+        <script src="script/readJSONdata.js" async></script>
+        <!-- zapisanie wynikow przykladowego zespolu(united dla przykładu) -->
+        <!-- <script src="script/testing.js" async></script> -->
+        <!-- pobranie ostatniego i następnego meczu zespołu -->
+        <!-- <script src="script/prevAndNext.js" async></script> -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="style/reset.css" />
+        <link rel="stylesheet" href="style/style.css" />
+    </head>
+    <body>
+        <header>
+            <img
+                src="style/icons/premierLeagueLogo.png"
+                alt="Premier League Logo"
+                id="PremierLeagueLogo" />
+            <h1>Premier League</h1>
+        </header>
+        <div class="recentFixtures" id="prevFixtures"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Place</th>
+                    <th>Team</th>
+                    <th>Played</th>
+                    <th>Won</th>
+                    <th>Drawn</th>
+                    <th>Lost</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>Points</th>
+                    <th>Last 5</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr class="expandable">
+                    <td colspan="11">
+                        <div class="expandableFixtures">
+                            <div class="leftSide">
+                                <div class="fixture">
+                                    <p class="date">25.05.2023</p>
+                                    <div class="teams home">
+                                        <p>Manchester United</p>
+                                        <img
+                                            src="style/icons/manUnitedLogo.png"
+                                            alt="unitedLogo" />
+                                    </div>
+                                    <p class="final hour">21:00</p>
+                                    <div class="teams away">
+                                        <img
+                                            src="style/icons/chelseaLogo.png"
+                                            alt="wolverhamptonLogo" />
+                                        <p>Chelsea</p>
+                                    </div>
+                                </div>
+
+                                <div class="fixture">
+                                    <p class="date">20.05.2023</p>
+                                    <div class="teams home">
+                                        <p>Bournemouth</p>
+                                        <img
+                                            src="style/icons/bournemouthLogo.png"
+                                            alt="wolverhamptonLogo" />
+                                    </div>
+                                    <p class="final">0:1</p>
+                                    <div class="teams away">
+                                        <img
+                                            src="style/icons/manUnitedLogo.png"
+                                            alt="unitedLogo" />
+                                        <p>Manchester United</p>
+                                    </div>
+                                </div>
+
+                                <div class="fixture">
+                                    <p class="date">13.05.2022</p>
+                                    <div class="teams home">
+                                        <p>Manchester United</p>
+                                        <img
+                                            src="style/icons/manUnitedLogo.png"
+                                            alt="unitedLogo" />
+                                    </div>
+                                    <p class="final">2:0</p>
+                                    <div class="teams away">
+                                        <img
+                                            src="style/icons/wolvesLogo.png"
+                                            alt="wolverhamptonLogo" />
+                                        <p>Wolves</p>
+                                    </div>
+                                </div>
+
+                                <div class="fixture">
+                                    <p class="date">04.12.2022</p>
+                                    <div class="teams home">
+                                        <p>West Ham United</p>
+                                        <img
+                                            src="style/icons/westHamLogo.png"
+                                            alt="wolverhamptonLogo" />
+                                    </div>
+                                    <p class="final">1:0</p>
+                                    <div class="teams away">
+                                        <img
+                                            src="style/icons/manUnitedLogo.png"
+                                            alt="unitedLogo" />
+                                        <p>Manchester United</p>
+                                    </div>
+                                </div>
+
+                                <div class="fixture">
+                                    <p class="date">04.12.2022</p>
+                                    <div class="teams home">
+                                        <p>Brighton</p>
+                                        <img
+                                            src="style/icons/bhaLogo.png"
+                                            alt="wolverhamptonLogo" />
+                                    </div>
+                                    <p class="final">1:0</p>
+                                    <div class="teams away">
+                                        <img
+                                            src="style/icons/manUnitedLogo.png"
+                                            alt="unitedLogo" />
+                                        <p>Manchester United</p>
+                                    </div>
+                                </div>
+
+                                <div class="fixture">
+                                    <p class="date">04.12.2022</p>
+                                    <div class="teams home">
+                                        <p>Manchester United</p>
+                                        <img
+                                            src="style/icons/manUnitedLogo.png"
+                                            alt="unitedLogo" />
+                                    </div>
+                                    <p class="final">1:0</p>
+                                    <div class="teams away">
+                                        <img
+                                            src="style/icons/astonVillaLogo.png"
+                                            alt="wolverhamptonLogo" />
+                                        <p>Aston Villa</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="rightSide">
+                                
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,155 @@
+body {
+    font-family: "Roboto Mono", monospace;
+}
+
+header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 8rem;
+    padding-left: 0.75rem;
+}
+
+header h1 {
+    font-size: 4rem;
+    color: #3d185c;
+}
+
+header img {
+    height: 6rem;
+}
+
+table {
+    margin-left: 1.75rem;
+    background-color: rgba(61, 24, 92, 0.7);
+    color: white;
+    box-shadow: 6px -3px 22px -8px #3d185c;
+    background-image: linear-gradient(
+        180deg,
+        rgba(61, 24, 92, 1) 2%,
+        rgba(13, 58, 255, 0.8) 15%,
+        rgba(255, 105, 0, 0.8) 28%,
+        rgba(0, 190, 20, 0.7) 35%,
+        rgba(61, 24, 92, 0.8) 39%,
+        rgba(216, 25, 31, 0.8) 100%
+    );
+}
+
+table .teamNamesAndLogos {
+    text-align: left;
+}
+
+table td {
+    height: 3rem;
+}
+
+table th:nth-child(1) {
+    width: 5.5rem;
+}
+
+table th:nth-child(2) {
+    width: 18rem;
+}
+
+table th:nth-child(1n + 3) {
+    width: 4.5rem;
+}
+
+.teamForm {
+    letter-spacing: 0.12rem;
+}
+
+table img {
+    width: 2.5rem;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+table th,
+td {
+    height: 2.2rem;
+    border-bottom: 0.5px solid white;
+}
+
+table th,
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* rozwijana sekcja poczatek */
+.expandable {
+    background-color: rgba(61, 24, 92, 0.7);
+}
+
+.expandableFixtures {
+    padding: 1.5rem;
+    display: flex;
+    gap: 3%;
+}
+
+.leftSide {
+    width: 48.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fixture {
+    background-color: #fefefb;
+    color: #212c27;
+    height: 5rem;
+    width: 100%;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-rows: 1fr 3fr;
+
+    border-radius: 0.5rem;
+}
+
+.fixture img {
+    width: 1.75rem;
+    margin: 0;
+}
+
+.date {
+    grid-column: 1 / 4;
+}
+
+.teams {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(0.4rem, 0.9rem , 1.4vw);
+}
+
+.home {
+    justify-self: end;
+}
+
+.away {
+    justify-self: start;
+}
+
+.final {
+    border: 1.9px solid #3d185c;
+    width: 75%;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.hour {
+    background-color: #3d185c;
+    color: #fefefb;
+}
+
+.rightSide {
+    background-color: #fefefb;
+    width: 48.5%;
+    border-radius: 0.5rem;
+}
+
+/* koniec rozwijanej sekcji */

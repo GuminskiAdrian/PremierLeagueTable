@@ -1,0 +1,94 @@
+{
+    "previousMatch": {
+        "fixture": {
+            "id": 868304,
+            "referee": "John Brooks, England",
+            "timezone": "UTC",
+            "date": "2023-05-13T14:00:00+00:00",
+            "timestamp": 1683986400,
+            "periods": { "first": 1683986400, "second": 1683990000 },
+            "venue": {
+                "id": 556,
+                "name": "Old Trafford",
+                "city": "Manchester"
+            },
+            "status": { "long": "Match Finished", "short": "FT", "elapsed": 90 }
+        },
+        "league": {
+            "id": 39,
+            "name": "Premier League",
+            "country": "England",
+            "logo": "https://media-2.api-sports.io/football/leagues/39.png",
+            "flag": "https://media-3.api-sports.io/flags/gb.svg",
+            "season": 2022,
+            "round": "Regular Season - 36"
+        },
+        "teams": {
+            "home": {
+                "id": 33,
+                "name": "Manchester United",
+                "logo": "https://media-2.api-sports.io/football/teams/33.png",
+                "winner": true
+            },
+            "away": {
+                "id": 39,
+                "name": "Wolves",
+                "logo": "https://media-2.api-sports.io/football/teams/39.png",
+                "winner": false
+            }
+        },
+        "goals": { "home": 2, "away": 0 },
+        "score": {
+            "halftime": { "home": 1, "away": 0 },
+            "fulltime": { "home": 2, "away": 0 },
+            "extratime": { "home": null, "away": null },
+            "penalty": { "home": null, "away": null }
+        }
+    },
+    "uppcomingMatch": {
+        "fixture": {
+            "id": 868306,
+            "referee": null,
+            "timezone": "UTC",
+            "date": "2023-05-20T14:00:00+00:00",
+            "timestamp": 1684591200,
+            "periods": { "first": null, "second": null },
+            "venue": {
+                "id": 504,
+                "name": "Vitality Stadium",
+                "city": "Bournemouth, Dorset"
+            },
+            "status": { "long": "Not Started", "short": "NS", "elapsed": null }
+        },
+        "league": {
+            "id": 39,
+            "name": "Premier League",
+            "country": "England",
+            "logo": "https://media-2.api-sports.io/football/leagues/39.png",
+            "flag": "https://media-2.api-sports.io/flags/gb.svg",
+            "season": 2022,
+            "round": "Regular Season - 37"
+        },
+        "teams": {
+            "home": {
+                "id": 35,
+                "name": "Bournemouth",
+                "logo": "https://media-1.api-sports.io/football/teams/35.png",
+                "winner": null
+            },
+            "away": {
+                "id": 33,
+                "name": "Manchester United",
+                "logo": "https://media-1.api-sports.io/football/teams/33.png",
+                "winner": null
+            }
+        },
+        "goals": { "home": null, "away": null },
+        "score": {
+            "halftime": { "home": null, "away": null },
+            "fulltime": { "home": null, "away": null },
+            "extratime": { "home": null, "away": null },
+            "penalty": { "home": null, "away": null }
+        }
+    }
+}
