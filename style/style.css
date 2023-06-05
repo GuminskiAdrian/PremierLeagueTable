@@ -78,6 +78,10 @@ td {
 }
 
 /* rozwijana sekcja poczatek */
+.invisible {
+    display: none;
+}
+
 .expandable {
     background-color: rgba(61, 24, 92, 0.7);
 }

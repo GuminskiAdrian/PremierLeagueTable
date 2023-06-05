@@ -31,7 +31,7 @@ fetchData().then(() => {
     table.forEach((team) => {
         const teamData = document.createElement("tr");
         teamData.innerHTML = `
-                    <td class='teamRank' id='expand'>${team.rank}</td>
+                    <td class='teamRank'>${team.rank}</td>
                     <td class='teamNamesAndLogos'><img src="${team.team.logo}" alt="${team.team.name} logo" id="${team.team.name}Logo">${team.team.name}</td>
                     <td>${team.all.played}</td>
                     <td>${team.all.win}</td>
@@ -44,21 +44,37 @@ fetchData().then(() => {
                     <td class='teamForm'>${team.form}</td>
                     `;
 
+        const template = document.getElementById("template");
+        const templateContent = template.content.cloneNode(true);
+        teamData.setAttribute("id", "show");
         tableBody.appendChild(teamData);
+        tableBody.appendChild(templateContent);
     });
     // ---------------------------------------------------------------------------
 
     // --------- poprzednie mecze ------------------------------------ -----------
-    for(let i = 0; i<5; i++) {
-        console.log(`${matches.previousMatch[i].teams.home.name} ${matches.previousMatch[i].score.fulltime.home} : ${matches.previousMatch[i].score.fulltime.away} ${matches.previousMatch[i].teams.away.name}`)
+    for (let i = 0; i < 5; i++) {
+        console.log(
+            `${matches.previousMatch[i].teams.home.name} ${matches.previousMatch[i].score.fulltime.home} : ${matches.previousMatch[i].score.fulltime.away} ${matches.previousMatch[i].teams.away.name}`
+        );
     }
-    
-    
-    
-    
+    //---------------------------------------------------------------------------
+    //----------------ukrywanie pokazywanie rozwijanej sekcji---------------
+    const expand = document.getElementById("show");
+
+    expand.addEventListener("click", (event) => {
+        event.preventDefault();
+        const expandable = document.getElementById("expandable");
+        expandable.classList.toggle("invisible");
+    });
     //---------------------------------------------------------------------------
 });
 
 // ------- testowa karta z poprzednim i następnym spotkaniem ---------------
-// 
+//
 // ---------------------------------------------------------------------------
+function hideShow() {
+    // const expandable = document.getElementById('expandable');
+    // expandable.classList.toggle('invisible');
+    console.log("hej");
+}
