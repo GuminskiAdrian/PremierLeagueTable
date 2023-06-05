@@ -18,7 +18,7 @@ function saveAsJSON(data){
 const nextMatchUrl =
     "https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=33";
 const prevMatchUrl =
-    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=1&team=33";
+    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=33";
 const options = {
     method: "GET",
     headers: {
@@ -42,7 +42,7 @@ async function fetchData() {
         await fetch(prevMatchUrl, options)
             .then((response) => response.json())
             .then((data) => {
-                prevMatch = data.response[0];
+                prevMatch = data.response;
             });
 
     } catch (error) {
