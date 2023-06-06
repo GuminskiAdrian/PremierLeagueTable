@@ -46,7 +46,7 @@ fetchData().then(() => {
 
         const template = document.getElementById("template");
         const templateContent = template.content.cloneNode(true);
-        teamData.setAttribute("id", "show");
+        teamData.setAttribute("class", "show");
         tableBody.appendChild(teamData);
         tableBody.appendChild(templateContent);
     });
@@ -60,21 +60,15 @@ fetchData().then(() => {
     }
     //---------------------------------------------------------------------------
     //----------------ukrywanie pokazywanie rozwijanej sekcji---------------
-    const expand = document.getElementById("show");
-
-    expand.addEventListener("click", (event) => {
-        event.preventDefault();
-        const expandable = document.getElementById("expandable");
-        expandable.classList.toggle("invisible");
-    });
+    const showHideElement = document.querySelectorAll(".show");
+    showHideElement.forEach( element => {
+        element.addEventListener('click', (event) => {
+            event.preventDefault();
+            // const expandable = document.querySelector(".expandable");
+            const currentRow = event.target.closest('tr');
+            const expandable = currentRow.nextElementSibling;
+            expandable.classList.toggle("invisible");    
+        })
+    })
     //---------------------------------------------------------------------------
-});
-
-// ------- testowa karta z poprzednim i następnym spotkaniem ---------------
-//
-// ---------------------------------------------------------------------------
-function hideShow() {
-    // const expandable = document.getElementById('expandable');
-    // expandable.classList.toggle('invisible');
-    console.log("hej");
-}
+})
