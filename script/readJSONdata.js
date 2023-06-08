@@ -67,7 +67,8 @@ fetchData().then(() => {
                 // tutaj nic nie ma ponieważ plik JSON nie jest przygotowany na
                 // automatyczne uzupełnienie jeśli skończył się sezon
             } else {
-                let dateFormated = matches.previousMatch[i-1].fixture.date;
+                const prevMatch = matches.previousMatch[i-1]
+                let dateFormated = prevMatch.fixture.date;
                 dateFormated = new Date(dateFormated);
 
                 const options = {
@@ -79,6 +80,13 @@ fetchData().then(() => {
                 dateFormated = dateFormated.toLocaleDateString("en-GB", options).split('/').join('.');
                 date.textContent = `${dateFormated}`
                 
+                homeTeamName.textContent = `${prevMatch.teams.home.name}`;
+                homeTeamLogo.src = `${prevMatch.teams.home.logo}`;
+
+                finalOrHour.textContent = `${prevMatch.goals.home}:${prevMatch.goals.away}`
+
+                awayTeamName.textContent = `${prevMatch.teams.away.name}`;
+                awayTeamLogo.src = `${prevMatch.teams.away.logo}`;
             }
         }
 
@@ -89,13 +97,7 @@ fetchData().then(() => {
     });
     // ---------------------------------------------------------------------------
 
-    // --------- poprzednie mecze ------------------------------------ -----------
-    // for (let i = 0; i < 5; i++) {
-    //     console.log(
-    //         `${matches.previousMatch[i].teams.home.name} ${matches.previousMatch[i].score.fulltime.home} : ${matches.previousMatch[i].score.fulltime.away} ${matches.previousMatch[i].teams.away.name}`
-    //     );
-    // }
-    //---------------------------------------------------------------------------
+    
     //----------------ukrywanie pokazywanie rozwijanej sekcji---------------
     const showHideElement = document.querySelectorAll(".show");
     showHideElement.forEach((element) => {
