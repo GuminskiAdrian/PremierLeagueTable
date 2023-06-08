@@ -66,6 +66,8 @@ fetchData().then(() => {
             if (i === 0) {
                 // tutaj nic nie ma ponieważ plik JSON nie jest przygotowany na
                 // automatyczne uzupełnienie jeśli skończył się sezon
+                const nextMatch = matches.uppcomingMatch;
+                console.log(nextMatch)
             } else {
                 const prevMatch = matches.previousMatch[i-1]
                 let dateFormated = prevMatch.fixture.date;

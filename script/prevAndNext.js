@@ -1,7 +1,8 @@
 // zapisywanie danych z API do pliku JSOn żeby nie pobierać za każdym ---------------------------razem--------------------------------
-const fs = require('fs');
+const fs = require("fs");
+const { type } = require("os");
 
-function saveAsJSON(data){
+function saveAsJSON(data) {
     const jsonData = JSON.stringify(data);
 
     fs.writeFile("../prevAndNextMatch.json", jsonData, (err) => {
@@ -37,6 +38,15 @@ async function fetchData() {
             .then((response) => response.json())
             .then((data) => {
                 nextMatch = data.response[0];
+                if (nextMatch === undefined) {
+                    nextMatch = {
+                        fixture: { date: "--.--.----", timestamp: "10201021" },
+                        teams: {
+                            home: { name: "home team", logo: "home team logo" },
+                            away: { name: "away team", logo: "away team logo" },
+                        },
+                    };
+                }
             });
 
         await fetch(prevMatchUrl, options)
@@ -44,7 +54,6 @@ async function fetchData() {
             .then((data) => {
                 prevMatch = data.response;
             });
-
     } catch (error) {
         console.log(error);
     }
@@ -53,7 +62,7 @@ async function fetchData() {
 
 // ------połącznie pobranych danych w jeden obiekt i zapisanie do pliku--------
 fetchData().then(() => {
-    const fixtures = { previousMatch: prevMatch, uppcomingMatch: nextMatch};
+    const fixtures = { previousMatch: prevMatch, uppcomingMatch: nextMatch };
     saveAsJSON(fixtures);
 });
 // ---------------------------------------------------------------------------
