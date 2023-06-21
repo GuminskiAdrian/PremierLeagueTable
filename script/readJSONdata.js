@@ -64,18 +64,36 @@ fetchData().then(() => {
             const awayTeamLogo = awayTeam.querySelector("img");
 
             if (i === 0) {
-                // tutaj nic nie ma ponieważ plik JSON nie jest przygotowany na
-                // automatyczne uzupełnienie jeśli skończył się sezon
                 const nextMatch = matches.uppcomingMatch;
+
+                let dateFormated = nextMatch.fixture.date;
+                date.textContent = converTime(dateFormated);
+
+                homeTeamName.textContent = `${nextMatch.teams.home.name}`;
+                homeTeamLogo.src = `${nextMatch.teams.home.logo}`;
+
+                let timestamp = nextMatch.fixture.timestamp * 1000;
+                timestamp = new Date(timestamp);
+                const hours = timestamp.getHours().toString().padStart(2, "0");
+                const minutes = timestamp
+                    .getMinutes()
+                    .toString()
+                    .padStart(2, "0");
+                timestamp = `${hours}:${minutes}`;
+                finalOrHour.textContent = `${timestamp}`;
+
+                awayTeamName.textContent = `${nextMatch.teams.away.name}`;
+                awayTeamLogo.src = `${nextMatch.teams.away.logo}`;
             } else {
-                const prevMatch = matches.previousMatch[i-1]
+                const prevMatch = matches.previousMatch[i - 1];
+
                 let dateFormated = prevMatch.fixture.date;
-                date.textContent = converTime(dateFormated)               
-                
+                date.textContent = converTime(dateFormated);
+
                 homeTeamName.textContent = `${prevMatch.teams.home.name}`;
                 homeTeamLogo.src = `${prevMatch.teams.home.logo}`;
 
-                finalOrHour.textContent = `${prevMatch.goals.home}:${prevMatch.goals.away}`
+                finalOrHour.textContent = `${prevMatch.goals.home}:${prevMatch.goals.away}`;
 
                 awayTeamName.textContent = `${prevMatch.teams.away.name}`;
                 awayTeamLogo.src = `${prevMatch.teams.away.logo}`;
@@ -89,7 +107,6 @@ fetchData().then(() => {
     });
     // ---------------------------------------------------------------------------
 
-    
     //----------------ukrywanie pokazywanie rozwijanej sekcji---------------
     const showHideElement = document.querySelectorAll(".show");
     showHideElement.forEach((element) => {
@@ -103,16 +120,22 @@ fetchData().then(() => {
     //---------------------------------------------------------------------------
 });
 
-
 function converTime(date) {
     dateFormated = new Date(date);
 
     const options = {
         day: "2-digit",
         month: "2-digit",
-        year: "numeric"
+        year: "numeric",
     };
 
-    dateFormated = dateFormated.toLocaleDateString("en-GB", options).split('/').join('.');
-    return dateFormated
+    dateFormated = dateFormated
+        .toLocaleDateString("en-GB", options)
+        .split("/")
+        .join(".");
+    
+    if(dateFormated == 'Invalid Date'){
+        dateFormated = 'No upcoming matches this season'
+    }
+    return dateFormated;
 }

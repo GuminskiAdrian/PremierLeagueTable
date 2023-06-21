@@ -42,8 +42,8 @@ async function fetchData() {
                     nextMatch = {
                         fixture: { date: "--.--.----", timestamp: "10201021" },
                         teams: {
-                            home: { name: "home team", logo: "home team logo" },
-                            away: { name: "away team", logo: "away team logo" },
+                            home: { name: "home team", logo: "style/icons/unknownTeam.png" },
+                            away: { name: "away team", logo: "style/icons/unknownTeam.png" },
                         },
                     };
                 }
