@@ -1,5 +1,7 @@
 // zapisywanie danych z API do pliku JSOn żeby nie pobierać za każdym ---------------------------razem--------------------------------
 const fs = require("fs");
+require('dotenv').config();
+const apiKey = process.env.APIkey;
 
 function saveAsJSON(data, fileName) {
     const jsonData = JSON.stringify(data);
@@ -32,7 +34,7 @@ const teamScore =
 const options = {
     method: "GET",
     headers: {
-        "X-RapidAPI-Key": "4c8e528503msh645768f10b3a13bp1d992djsn76cea7cfff2c",
+        "X-RapidAPI-Key": apiKey,
         "X-RapidAPI-Host": "api-football-beta.p.rapidapi.com",
     },
 };
