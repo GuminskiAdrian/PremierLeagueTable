@@ -67,20 +67,10 @@ fetchData().then(() => {
                 // tutaj nic nie ma ponieważ plik JSON nie jest przygotowany na
                 // automatyczne uzupełnienie jeśli skończył się sezon
                 const nextMatch = matches.uppcomingMatch;
-                console.log(nextMatch)
             } else {
                 const prevMatch = matches.previousMatch[i-1]
                 let dateFormated = prevMatch.fixture.date;
-                dateFormated = new Date(dateFormated);
-
-                const options = {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric"
-                };
-
-                dateFormated = dateFormated.toLocaleDateString("en-GB", options).split('/').join('.');
-                date.textContent = `${dateFormated}`
+                date.textContent = converTime(dateFormated)               
                 
                 homeTeamName.textContent = `${prevMatch.teams.home.name}`;
                 homeTeamLogo.src = `${prevMatch.teams.home.logo}`;
@@ -112,3 +102,17 @@ fetchData().then(() => {
     });
     //---------------------------------------------------------------------------
 });
+
+
+function converTime(date) {
+    dateFormated = new Date(date);
+
+    const options = {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    };
+
+    dateFormated = dateFormated.toLocaleDateString("en-GB", options).split('/').join('.');
+    return dateFormated
+}
