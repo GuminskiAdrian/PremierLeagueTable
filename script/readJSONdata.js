@@ -135,7 +135,7 @@ function converTime(date) {
         .join(".");
     
     if(dateFormated == 'Invalid Date'){
-        dateFormated = 'No upcoming matches this season'
+        dateFormated = 'No upcoming matches planned yet'
     }
     return dateFormated;
 }
