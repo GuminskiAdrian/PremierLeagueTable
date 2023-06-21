@@ -2,19 +2,19 @@ let table, fixtures, matches;
 // --------- pobieranie danych z JSON---------------------------------------------
 async function fetchData() {
     try {
-        await fetch("dane.json")
+        await fetch("JSONfiles/table.json")
             .then((response) => response.json())
             .then((data) => {
                 table = data.league.standings[0];
             });
 
-        await fetch("wynikiUnited.json")
+        await fetch("JSONfiles/unitedScores.json")
             .then((response) => response.json())
             .then((data) => {
                 fixtures = data;
             });
 
-        await fetch("prevAndNextMatch.json")
+        await fetch("JSONfiles/prevAndNextMatch.json")
             .then((response) => response.json())
             .then((data) => {
                 matches = data;
