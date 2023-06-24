@@ -1,6 +1,6 @@
 // zapisywanie danych z API do pliku JSOn żeby nie pobierać za każdym ---------------------------razem--------------------------------
 const fs = require("fs");
-require('dotenv').config();
+require("dotenv").config();
 const apiKey = process.env.APIkey;
 
 function saveAsJSON(data, fileName) {
@@ -17,17 +17,17 @@ function saveAsJSON(data, fileName) {
 // ---------------------------------------------------------------------------
 
 // ------------------------------URLs-----------------------------------------
-// Prev and Next match
-const nextMatchUrl =
-    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=33";
-const prevMatchUrl =
-    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=33";
 // Table
 const tableURL =
     "https://api-football-beta.p.rapidapi.com/standings?season=2022&league=39";
 // team score
 const teamScore =
     "https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=33";
+// Prev and Next match
+const nextMatchUrl =
+    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=33";
+const prevMatchUrl =
+    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=33";
 
 // ---------------------------------------------------------------------------
 
@@ -46,7 +46,9 @@ async function fetchData() {
         await fetch(tableURL, options)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 table = data.response[0];
+                console.log(table);
             });
 
         await fetch(nextMatchUrl, options)
@@ -81,7 +83,7 @@ async function fetchData() {
             .then((data) => {
                 scores = data;
             });
-            
+
     } catch (error) {
         console.log(error);
     }
@@ -93,5 +95,5 @@ fetchData().then(() => {
     saveAsJSON(table, "table");
     const fixtures = { previousMatch: prevMatch, uppcomingMatch: nextMatch };
     saveAsJSON(fixtures, "prevAndNextMatch");
-    saveAsJSON(scores, "unitedScores");
+    saveAsJSON(scores, "Scores");
 });

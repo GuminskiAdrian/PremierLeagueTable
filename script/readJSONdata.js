@@ -43,7 +43,7 @@ fetchData().then(() => {
                     <td>${team.points}</td>
                     <td class='teamForm'>${team.form}</td>
                     `;
-
+        console.log(`${team.team.name} -> ${team.team.id}`);
         // --------- obsluga danych w template -----------------------------------
         const template = document
             .getElementById("template")
