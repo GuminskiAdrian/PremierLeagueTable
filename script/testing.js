@@ -47,15 +47,13 @@ async function fetchData() {
             .then((response) => response.json())
             .then((data) => {
                 table = data.response[0];
-                console.log(table);
             });
 
         //------------------------------Testing-----------------------------------
-
         table.league.standings[0].forEach((element) => {
             const teamId = element.team.id;
             const teamName = element.team.name;
-
+            console.log(`${teamName} -> ${teamId}`);
             // team score
             const teamScore = `https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=${teamId}`;
             // Prev and Next match
@@ -84,20 +82,27 @@ async function fetchData() {
                             },
                         };
                     }
+                    fetch(prevMatchUrl, options)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            prevMatch = data.response;
+                        });
+                    const fixtures = {
+                        previousMatch: prevMatch,
+                        uppcomingMatch: nextMatch,
+                    };
+                    saveAsJSON(
+                        fixtures,
+                        `PrevAndNext/${teamName}prevAndNextMatch`
+                    );
                 });
 
-            fetch(prevMatchUrl, options)
-                .then((response) => response.json())
-                .then((data) => {
-                    prevMatch = data.response;
-                });
-
-            fetch(teamScore, options)
-                .then((response) => response.json())
-                .then((data) => {
-                    scores = data.response[0];
-                    saveAsJSON(scores, `TeamScores/${teamName}Scores`);
-                });
+            // fetch(teamScore, options)
+            //     .then((response) => response.json())
+            //     .then((data) => {
+            //         scores = data.response[0];
+            //         saveAsJSON(scores, `TeamScores/${teamName}Scores`);
+            //     });
         });
 
         //------------------------------Testing-----------------------------------
@@ -110,7 +115,4 @@ async function fetchData() {
 // -----------------------saving data to JSON---------------------------------
 fetchData().then(() => {
     saveAsJSON(table, "table");
-    // const fixtures = { previousMatch: prevMatch, uppcomingMatch: nextMatch };
-    // saveAsJSON(fixtures, "prevAndNextMatch");
-    // saveAsJSON(scores, "Scores");
 });
