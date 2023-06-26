@@ -15,6 +15,7 @@ async function fetchData() {
             });
 
         await fetch("JSONfiles/prevAndNextMatch.json")
+        // await fetch("JSONfiles/PrevAndNext/ArsenalprevAndNextMatch.json")
             .then((response) => response.json())
             .then((data) => {
                 matches = data;

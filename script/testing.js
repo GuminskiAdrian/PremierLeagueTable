@@ -53,7 +53,6 @@ async function fetchData() {
         table.league.standings[0].forEach((element) => {
             const teamId = element.team.id;
             const teamName = element.team.name;
-            console.log(`${teamName} -> ${teamId}`);
             // team score
             const teamScore = `https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=${teamId}`;
             // Prev and Next match
@@ -91,6 +90,7 @@ async function fetchData() {
                         previousMatch: prevMatch,
                         uppcomingMatch: nextMatch,
                     };
+                    console.log(`${teamName} -> ${fixtures.previousMatch}`)
                     saveAsJSON(
                         fixtures,
                         `PrevAndNext/${teamName}prevAndNextMatch`

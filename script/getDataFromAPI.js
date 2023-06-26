@@ -25,9 +25,9 @@ const teamScore =
     "https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=33";
 // Prev and Next match
 const nextMatchUrl =
-    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=33";
+    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=42";
 const prevMatchUrl =
-    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=33";
+    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=42";
 
 // ---------------------------------------------------------------------------
 
@@ -48,7 +48,6 @@ async function fetchData() {
             .then((data) => {
                 console.log(data);
                 table = data.response[0];
-                console.log(table);
             });
 
         await fetch(nextMatchUrl, options)
@@ -78,11 +77,11 @@ async function fetchData() {
                 prevMatch = data.response;
             });
 
-        await fetch(teamScore, options)
-            .then((response) => response.json())
-            .then((data) => {
-                scores = data;
-            });
+        // await fetch(teamScore, options)
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         scores = data;
+        //     });
 
     } catch (error) {
         console.log(error);
@@ -94,6 +93,6 @@ async function fetchData() {
 fetchData().then(() => {
     saveAsJSON(table, "table");
     const fixtures = { previousMatch: prevMatch, uppcomingMatch: nextMatch };
-    saveAsJSON(fixtures, "prevAndNextMatch");
-    saveAsJSON(scores, "Scores");
+    saveAsJSON(fixtures, "PrevAndNext/ArsenalprevAndNextMatch.json");
+    // saveAsJSON(scores, "Scores");
 });
