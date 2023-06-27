@@ -20,14 +20,7 @@ function saveAsJSON(data, fileName) {
 // Table
 const tableURL =
     "https://api-football-beta.p.rapidapi.com/standings?season=2022&league=39";
-// team score
-const teamScore =
-    "https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=33";
-// Prev and Next match
-const nextMatchUrl =
-    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=42";
-const prevMatchUrl =
-    "https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=42";
+const lineupURL = "https://v3.football.api-sports.io/fixtures/lineups?fixture=868316"
 
 // ---------------------------------------------------------------------------
 
@@ -40,7 +33,7 @@ const options = {
 };
 
 // ---------------------------Fetching data-----------------------------------
-let table, nextMatch, prevMatch, scores;
+let table, nextMatch, prevMatch, scores, lineup;
 async function fetchData() {
     try {
         await fetch(tableURL, options)
@@ -49,43 +42,69 @@ async function fetchData() {
                 table = data.response[0];
             });
 
-        await fetch(nextMatchUrl, options)
+        //------------------------------Testing-----------------------------------
+        // await table.league.standings[0].forEach((element) => {
+        //     const teamId = element.team.id;
+        //     const teamName = element.team.name;
+        //     // team score
+        //     const teamScore = `https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=${teamId}`;
+        //     // Prev and Next match
+        //     const nextMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=${teamId}`;
+        //     const prevMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=${teamId}`;
+
+        //     const fixtures = {
+        //         uppcomingMatch: undefined,
+        //         previousMatch: undefined
+        //     };
+
+        //     fetch(nextMatchUrl, options)
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             nextMatch = data.response[0];
+        //             fixtures.uppcomingMatch = nextMatch;
+        //             if (nextMatch === undefined) {
+        //                 nextMatch = {
+        //                     fixture: {
+        //                         date: "--.--.----",
+        //                         timestamp: "10201021",
+        //                     },
+        //                     teams: {
+        //                         home: {
+        //                             name: "home team",
+        //                             logo: "style/icons/unknownTeam.png",
+        //                         },
+        //                         away: {
+        //                             name: "away team",
+        //                             logo: "style/icons/unknownTeam.png",
+        //                         },
+        //                     },
+        //                 };
+        //             }
+        //         })
+        //         .then(() => {
+        //             fetch(prevMatchUrl, options)
+        //                 .then((response) => response.json())
+        //                 .then((data) => {
+        //                     prevMatch = data.response;
+        //                 })
+        //                 .then(() => {
+        //                     fixtures.previousMatch = prevMatch;
+        //                     saveAsJSON(
+        //                         fixtures,
+        //                         `PrevAndNext/${teamName}prevAndNextMatch`
+        //                     );
+        //                 });
+        //         });
+        // });
+
+        await fetch(lineupURL, options)
             .then((response) => response.json())
             .then((data) => {
-                nextMatch = data.response[0];
-                if (nextMatch === undefined) {
-                    nextMatch = {
-                        fixture: { date: "--.--.----", timestamp: "10201021" },
-                        teams: {
-                            home: {
-                                name: "home team",
-                                logo: "style/icons/unknownTeam.png",
-                            },
-                            away: {
-                                name: "away team",
-                                logo: "style/icons/unknownTeam.png",
-                            },
-                        },
-                    };
-                }
+                lineup = data;
+                
             });
 
-        await fetch(prevMatchUrl, options)
-            .then((response) => response.json())
-            .then((data) => {
-                prevMatch = data.response;
-            });
-        const fixtures = {
-            previousMatch: prevMatch,
-            uppcomingMatch: nextMatch,
-        };
-        saveAsJSON(fixtures, "PrevAndNext/ArsenalprevAndNextMatch");
-
-        // await fetch(teamScore, options)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         scores = data;
-        //     });
+        //------------------------------Testing-----------------------------------
     } catch (error) {
         console.log(error);
     }
@@ -94,8 +113,6 @@ async function fetchData() {
 // ---------------------------------------------------------------------------
 // -----------------------saving data to JSON---------------------------------
 fetchData().then(() => {
-    saveAsJSON(table, "table");
-    const fixtures = { previousMatch: prevMatch, uppcomingMatch: nextMatch };
-    saveAsJSON(fixtures, "PrevAndNext/ArsenalprevAndNextMatch");
-    // saveAsJSON(scores, "Scores");
+    // saveAsJSON(table, "table");
+    saveAsJSON(lineup, 'test/test');
 });

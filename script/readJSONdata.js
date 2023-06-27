@@ -44,7 +44,6 @@ fetchData().then(() => {
                     <td>${team.points}</td>
                     <td class='teamForm'>${team.form}</td>
                     `;
-        console.log(`${team.team.name} -> ${team.team.id}`);
 
         const template = document
             .getElementById("template")
@@ -69,7 +68,8 @@ fetchData().then(() => {
                     const nextMatch = matches.uppcomingMatch;
 
                     if (nextMatch === undefined) {
-                        date.textContent = 'Team relegated, no upcoming games in this league';
+                        date.textContent =
+                            "Team relegated, no upcoming games in this league";
                     } else {
                         let dateFormated = nextMatch.fixture.date;
                         date.textContent = converTime(dateFormated);
