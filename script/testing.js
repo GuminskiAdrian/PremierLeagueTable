@@ -99,22 +99,6 @@ async function fetchData() {
                             );
                         });
                 });
-
-            // fetch(prevMatchUrl, options)
-            //     .then((response) => response.json())
-            //     .then((data) => {
-            //         prevMatch = data.response;
-            //     })
-            //     .then(() => {
-            //         const fixtures = {
-            //             previousMatch: prevMatch,
-            //             uppcomingMatch: nextMatch,
-            //         };
-            //         saveAsJSON(
-            //             fixtures,
-            //             `PrevAndNext/${teamName}prevAndNextMatch`
-            //         );
-            //     });
         });
 
         //------------------------------Testing-----------------------------------

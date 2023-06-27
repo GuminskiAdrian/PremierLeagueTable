@@ -13,13 +13,6 @@ async function fetchData() {
             .then((data) => {
                 fixtures = data;
             });
-
-        // await fetch("JSONfiles/prevAndNextMatch.json")
-        // // await fetch("JSONfiles/PrevAndNext/ArsenalprevAndNextMatch.json")
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         matches = data;
-        //     });
     } catch (error) {
         console.log(error);
     }
@@ -75,27 +68,31 @@ fetchData().then(() => {
                 if (i === 0) {
                     const nextMatch = matches.uppcomingMatch;
 
-                    let dateFormated = nextMatch.fixture.date;
-                    date.textContent = converTime(dateFormated);
+                    if (nextMatch === undefined) {
+                        date.textContent = 'Team relegated, no upcoming games in this league';
+                    } else {
+                        let dateFormated = nextMatch.fixture.date;
+                        date.textContent = converTime(dateFormated);
 
-                    homeTeamName.textContent = `${nextMatch.teams.home.name}`;
-                    homeTeamLogo.src = `${nextMatch.teams.home.logo}`;
+                        homeTeamName.textContent = `${nextMatch.teams.home.name}`;
+                        homeTeamLogo.src = `${nextMatch.teams.home.logo}`;
 
-                    let timestamp = nextMatch.fixture.timestamp * 1000;
-                    timestamp = new Date(timestamp);
-                    const hours = timestamp
-                        .getHours()
-                        .toString()
-                        .padStart(2, "0");
-                    const minutes = timestamp
-                        .getMinutes()
-                        .toString()
-                        .padStart(2, "0");
-                    timestamp = `${hours}:${minutes}`;
-                    finalOrHour.textContent = `${timestamp}`;
+                        let timestamp = nextMatch.fixture.timestamp * 1000;
+                        timestamp = new Date(timestamp);
+                        const hours = timestamp
+                            .getHours()
+                            .toString()
+                            .padStart(2, "0");
+                        const minutes = timestamp
+                            .getMinutes()
+                            .toString()
+                            .padStart(2, "0");
+                        timestamp = `${hours}:${minutes}`;
+                        finalOrHour.textContent = `${timestamp}`;
 
-                    awayTeamName.textContent = `${nextMatch.teams.away.name}`;
-                    awayTeamLogo.src = `${nextMatch.teams.away.logo}`;
+                        awayTeamName.textContent = `${nextMatch.teams.away.name}`;
+                        awayTeamLogo.src = `${nextMatch.teams.away.logo}`;
+                    }
                 } else {
                     const prevMatch = matches.previousMatch[i - 1];
 
