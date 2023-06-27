@@ -46,7 +46,6 @@ async function fetchData() {
         await fetch(tableURL, options)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 table = data.response[0];
             });
 
@@ -76,13 +75,17 @@ async function fetchData() {
             .then((data) => {
                 prevMatch = data.response;
             });
+        const fixtures = {
+            previousMatch: prevMatch,
+            uppcomingMatch: nextMatch,
+        };
+        saveAsJSON(fixtures, "PrevAndNext/ArsenalprevAndNextMatch");
 
         // await fetch(teamScore, options)
         //     .then((response) => response.json())
         //     .then((data) => {
         //         scores = data;
         //     });
-
     } catch (error) {
         console.log(error);
     }
@@ -93,6 +96,6 @@ async function fetchData() {
 fetchData().then(() => {
     saveAsJSON(table, "table");
     const fixtures = { previousMatch: prevMatch, uppcomingMatch: nextMatch };
-    saveAsJSON(fixtures, "PrevAndNext/ArsenalprevAndNextMatch.json");
+    saveAsJSON(fixtures, "PrevAndNext/ArsenalprevAndNextMatch");
     // saveAsJSON(scores, "Scores");
 });

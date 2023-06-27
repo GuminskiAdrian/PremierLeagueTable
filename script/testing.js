@@ -20,9 +20,6 @@ function saveAsJSON(data, fileName) {
 // Table
 const tableURL =
     "https://api-football-beta.p.rapidapi.com/standings?season=2022&league=39";
-// team score
-const teamScore =
-    "https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=33";
 // Prev and Next match
 const nextMatchUrl =
     "https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=33";
@@ -50,7 +47,7 @@ async function fetchData() {
             });
 
         //------------------------------Testing-----------------------------------
-        table.league.standings[0].forEach((element) => {
+        await table.league.standings[0].forEach((element) => {
             const teamId = element.team.id;
             const teamName = element.team.name;
             // team score
@@ -81,28 +78,23 @@ async function fetchData() {
                             },
                         };
                     }
-                    fetch(prevMatchUrl, options)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            prevMatch = data.response;
-                        });
+                });
+
+            fetch(prevMatchUrl, options)
+                .then((response) => response.json())
+                .then((data) => {
+                    prevMatch = data.response;
+                })
+                .then(() => {
                     const fixtures = {
                         previousMatch: prevMatch,
                         uppcomingMatch: nextMatch,
                     };
-                    console.log(`${teamName} -> ${fixtures.previousMatch}`)
                     saveAsJSON(
                         fixtures,
                         `PrevAndNext/${teamName}prevAndNextMatch`
                     );
                 });
-
-            // fetch(teamScore, options)
-            //     .then((response) => response.json())
-            //     .then((data) => {
-            //         scores = data.response[0];
-            //         saveAsJSON(scores, `TeamScores/${teamName}Scores`);
-            //     });
         });
 
         //------------------------------Testing-----------------------------------
