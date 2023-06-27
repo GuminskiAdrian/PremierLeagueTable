@@ -56,10 +56,16 @@ async function fetchData() {
             const nextMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=${teamId}`;
             const prevMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=${teamId}`;
 
+            const fixtures = {
+                uppcomingMatch: undefined,
+                previousMatch: undefined
+            };
+
             fetch(nextMatchUrl, options)
                 .then((response) => response.json())
                 .then((data) => {
                     nextMatch = data.response[0];
+                    fixtures.uppcomingMatch = nextMatch;
                     if (nextMatch === undefined) {
                         nextMatch = {
                             fixture: {
@@ -86,10 +92,7 @@ async function fetchData() {
                             prevMatch = data.response;
                         })
                         .then(() => {
-                            const fixtures = {
-                                uppcomingMatch: nextMatch,
-                                previousMatch: prevMatch
-                            };
+                            fixtures.previousMatch = prevMatch;
                             saveAsJSON(
                                 fixtures,
                                 `PrevAndNext/${teamName}prevAndNextMatch`
