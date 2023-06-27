@@ -15,16 +15,23 @@ async function fetchData() {
             });
 
         // await fetch("JSONfiles/prevAndNextMatch.json")
-        await fetch("JSONfiles/PrevAndNext/ArsenalprevAndNextMatch.json")
-            .then((response) => response.json())
-            .then((data) => {
-                matches = data;
-            });
+        // // await fetch("JSONfiles/PrevAndNext/ArsenalprevAndNextMatch.json")
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         matches = data;
+        //     });
     } catch (error) {
         console.log(error);
     }
 }
 // -------------------------------------------------------------------------------
+async function prevAndNext(teamName) {
+    await fetch(`JSONfiles/PrevAndNext/${teamName}prevAndNextMatch.json`)
+        .then((response) => response.json())
+        .then((data) => {
+            matches = data;
+        });
+}
 
 fetchData().then(() => {
     // --------- generowanie tabeli-----------------------------------------------
@@ -45,66 +52,73 @@ fetchData().then(() => {
                     <td class='teamForm'>${team.form}</td>
                     `;
         console.log(`${team.team.name} -> ${team.team.id}`);
-        // --------- obsluga danych w template -----------------------------------
+
         const template = document
             .getElementById("template")
             .content.cloneNode(true);
-
         const fixture = template.querySelectorAll(".fixture");
-        for (let i = 0; i < 6; i++) {
-            const date = fixture[i].querySelector(".date");
 
-            const homeTeam = fixture[i].querySelector(".home");
-            const homeTeamName = homeTeam.querySelector("p");
-            const homeTeamLogo = homeTeam.querySelector("img");
+        prevAndNext(team.team.name).then(() => {
+            for (let i = 0; i < 6; i++) {
+                const date = fixture[i].querySelector(".date");
 
-            const finalOrHour = fixture[i].querySelector(".final");
+                const homeTeam = fixture[i].querySelector(".home");
+                const homeTeamName = homeTeam.querySelector("p");
+                const homeTeamLogo = homeTeam.querySelector("img");
 
-            const awayTeam = fixture[i].querySelector(".away");
-            const awayTeamName = awayTeam.querySelector("p");
-            const awayTeamLogo = awayTeam.querySelector("img");
+                const finalOrHour = fixture[i].querySelector(".final");
 
-            if (i === 0) {
-                const nextMatch = matches.uppcomingMatch;
+                const awayTeam = fixture[i].querySelector(".away");
+                const awayTeamName = awayTeam.querySelector("p");
+                const awayTeamLogo = awayTeam.querySelector("img");
 
-                let dateFormated = nextMatch.fixture.date;
-                date.textContent = converTime(dateFormated);
+                if (i === 0) {
+                    const nextMatch = matches.uppcomingMatch;
 
-                homeTeamName.textContent = `${nextMatch.teams.home.name}`;
-                homeTeamLogo.src = `${nextMatch.teams.home.logo}`;
+                    let dateFormated = nextMatch.fixture.date;
+                    date.textContent = converTime(dateFormated);
 
-                let timestamp = nextMatch.fixture.timestamp * 1000;
-                timestamp = new Date(timestamp);
-                const hours = timestamp.getHours().toString().padStart(2, "0");
-                const minutes = timestamp
-                    .getMinutes()
-                    .toString()
-                    .padStart(2, "0");
-                timestamp = `${hours}:${minutes}`;
-                finalOrHour.textContent = `${timestamp}`;
+                    homeTeamName.textContent = `${nextMatch.teams.home.name}`;
+                    homeTeamLogo.src = `${nextMatch.teams.home.logo}`;
 
-                awayTeamName.textContent = `${nextMatch.teams.away.name}`;
-                awayTeamLogo.src = `${nextMatch.teams.away.logo}`;
-            } else {
-                const prevMatch = matches.previousMatch[i - 1];
+                    let timestamp = nextMatch.fixture.timestamp * 1000;
+                    timestamp = new Date(timestamp);
+                    const hours = timestamp
+                        .getHours()
+                        .toString()
+                        .padStart(2, "0");
+                    const minutes = timestamp
+                        .getMinutes()
+                        .toString()
+                        .padStart(2, "0");
+                    timestamp = `${hours}:${minutes}`;
+                    finalOrHour.textContent = `${timestamp}`;
 
-                let dateFormated = prevMatch.fixture.date;
-                date.textContent = converTime(dateFormated);
+                    awayTeamName.textContent = `${nextMatch.teams.away.name}`;
+                    awayTeamLogo.src = `${nextMatch.teams.away.logo}`;
+                } else {
+                    const prevMatch = matches.previousMatch[i - 1];
 
-                homeTeamName.textContent = `${prevMatch.teams.home.name}`;
-                homeTeamLogo.src = `${prevMatch.teams.home.logo}`;
+                    let dateFormated = prevMatch.fixture.date;
+                    date.textContent = converTime(dateFormated);
 
-                finalOrHour.textContent = `${prevMatch.goals.home}:${prevMatch.goals.away}`;
+                    homeTeamName.textContent = `${prevMatch.teams.home.name}`;
+                    homeTeamLogo.src = `${prevMatch.teams.home.logo}`;
 
-                awayTeamName.textContent = `${prevMatch.teams.away.name}`;
-                awayTeamLogo.src = `${prevMatch.teams.away.logo}`;
+                    finalOrHour.textContent = `${prevMatch.goals.home}:${prevMatch.goals.away}`;
+
+                    awayTeamName.textContent = `${prevMatch.teams.away.name}`;
+                    awayTeamLogo.src = `${prevMatch.teams.away.logo}`;
+                }
             }
-        }
+        });
 
         // -----------------------------------------------------------------------
         teamData.setAttribute("class", "show");
         tableBody.appendChild(teamData);
         tableBody.appendChild(template);
+
+        // --------- obsluga danych w template -----------------------------------
     });
     // ---------------------------------------------------------------------------
 
@@ -134,9 +148,9 @@ function converTime(date) {
         .toLocaleDateString("en-GB", options)
         .split("/")
         .join(".");
-    
-    if(dateFormated == 'Invalid Date'){
-        dateFormated = 'No upcoming matches planned yet'
+
+    if (dateFormated == "Invalid Date") {
+        dateFormated = "No upcoming matches planned yet";
     }
     return dateFormated;
 }
