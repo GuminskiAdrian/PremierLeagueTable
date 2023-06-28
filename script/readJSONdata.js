@@ -14,11 +14,6 @@ async function fetchData() {
                 fixtures = data;
             });
 
-        await fetch("JSONfiles/test/test.json")
-            .then((response) => response.json())
-            .then((data) => {
-                lineup = data;
-            });
     } catch (error) {
         console.log(error);
     }
@@ -29,6 +24,14 @@ async function prevAndNext(teamName) {
         .then((response) => response.json())
         .then((data) => {
             matches = data;
+        });
+}
+
+async function lastMatchLineup(teamName) {
+    await fetch(`JSONfiles/lastGameSquads/lastGame${teamName}Squad.json`)
+        .then((response) => response.json())
+        .then((data) => {
+            lineup = data;
         });
 }
 
@@ -50,7 +53,7 @@ fetchData().then(() => {
                     <td>${team.points}</td>
                     <td class='teamForm'>${team.form}</td>
                     `;
-
+        // -----------obsluga template--------------------------------------------
         const template = document
             .getElementById("template")
             .content.cloneNode(true);
@@ -114,8 +117,40 @@ fetchData().then(() => {
                     awayTeamLogo.src = `${prevMatch.teams.away.logo}`;
                 }
             }
-            // id of last played match
-            // console.log(matches.previousMatch[0].fixture.id)
+        });
+        //---------------------------line ups---------------------------------
+        const homeSquadList = template.getElementById("homeSquadList");
+        const awaySquadList = template.getElementById("awaySquadList");
+        lastMatchLineup(team.team.name).then(() => {
+            const homeTeamLineup = lineup[0];
+            const awayTeamLineup = lineup[1];
+            
+            const homeListOfPlayers = homeSquadList.querySelectorAll("p");
+            const awayListOfPlayers = awaySquadList.querySelectorAll("p");
+
+            squadList(homeTeamLineup, homeListOfPlayers);
+            squadList(awayTeamLineup, awayListOfPlayers);
+            function squadList(sideLineup, sideList){sideList
+                for (let i = 0; i < 21; i++) {
+                    if (i < 11) {
+                        sideList[i].textContent =
+                            sideLineup.startXI[i].player.name;
+                    } else if (i >= 11 && i < 20) {
+                        if (typeof sideLineup.substitutes[i - 11] === 'undefined') {
+                            sideList[i].textContent = "";
+                        } else {
+                            sideList[i].textContent =
+                                sideLineup.substitutes[i - 11].player.name;
+                        }
+                    } else if (i == 20) {
+                        sideList[i].textContent = sideLineup.coach.name;
+                    }
+                }
+            }
+
+            
+
+            
         });
 
         // -----------------------------------------------------------------------
@@ -123,7 +158,7 @@ fetchData().then(() => {
         tableBody.appendChild(teamData);
         tableBody.appendChild(template);
 
-        // --------- obsluga danych w template -----------------------------------
+        // --------- koniec obslugi danych w template ----------------------------
     });
     // ---------------------------------------------------------------------------
 
@@ -137,28 +172,6 @@ fetchData().then(() => {
             expandable.classList.toggle("invisible");
         });
     });
-    //---------------------------------------------------------------------------
-    //---------------------------line ups----------------------------------------
-
-    // const homeTeamLineup = lineup[0];
-    // const awayTeamLineup = lineup[1];
-
-    // console.log(Object.keys(homeTeamLineup.startXI[0].player))
-    // console.log(homeTeamLineup.formation)
-
-    // console.log('Starting XI');
-    // homeTeamLineup.startXI.forEach((player) => {
-    //     console.log(`${player.player.number} ${player.player.name}`)
-    // })
-
-    // console.log('Substitutes');
-    // homeTeamLineup.substitutes.forEach((player) => {
-    //     console.log(`${player.player.number} ${player.player.name}`)
-    // })
-
-    // console.log('Coach');
-    // console.log(homeTeamLineup.coach.name)
-
     //---------------------------------------------------------------------------
 });
 
