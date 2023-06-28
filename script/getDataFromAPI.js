@@ -20,7 +20,6 @@ function saveAsJSON(data, fileName) {
 // Table
 const tableURL =
     "https://api-football-beta.p.rapidapi.com/standings?season=2022&league=39";
-const lineupURL = "https://v3.football.api-sports.io/fixtures/lineups?fixture=868316"
 
 // ---------------------------------------------------------------------------
 
@@ -33,7 +32,7 @@ const options = {
 };
 
 // ---------------------------Fetching data-----------------------------------
-let table, nextMatch, prevMatch, scores, lineup;
+let table, nextMatch, prevMatch, lineup;
 async function fetchData() {
     try {
         await fetch(tableURL, options)
@@ -42,67 +41,76 @@ async function fetchData() {
                 table = data.response[0];
             });
 
+        await table.league.standings[0].forEach((element) => {
+            const teamId = element.team.id;
+            const teamName = element.team.name;
+            // team score
+            const teamScore = `https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=${teamId}`;
+            // Prev and Next match
+            const nextMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=${teamId}`;
+            const prevMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=${teamId}`;
+
+            const fixtures = {
+                uppcomingMatch: undefined,
+                previousMatch: undefined,
+            };
+
+            fetch(nextMatchUrl, options)
+                .then((response) => response.json())
+                .then((data) => {
+                    nextMatch = data.response[0];
+                    fixtures.uppcomingMatch = nextMatch;
+                    if (nextMatch === undefined) {
+                        nextMatch = {
+                            fixture: {
+                                date: "--.--.----",
+                                timestamp: "10201021",
+                            },
+                            teams: {
+                                home: {
+                                    name: "home team",
+                                    logo: "style/icons/unknownTeam.png",
+                                },
+                                away: {
+                                    name: "away team",
+                                    logo: "style/icons/unknownTeam.png",
+                                },
+                            },
+                        };
+                    }
+                })
+                .then(() => {
+                    fetch(prevMatchUrl, options)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            prevMatch = data.response;
+                        })
+                        .then(() => {
+                            fixtures.previousMatch = prevMatch;
+                            saveAsJSON(
+                                fixtures,
+                                `PrevAndNext/${teamName}prevAndNextMatch`
+                            );
+                        })
+                        .then(() => {
+                            const lineupURL = `https://api-football-beta.p.rapidapi.com/fixtures/lineups?fixture=${fixtures.previousMatch[0].fixture.id}`;
+                            fetch(lineupURL, options)
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    lineup = data.response;
+                                })
+                                .then(() => {
+                                    saveAsJSON(
+                                        lineup,
+                                        `lastGameSquads/lastGame${teamName}Squad`
+                                    );
+                                });
+                        });
+                });
+        });
+
         //------------------------------Testing-----------------------------------
-        // await table.league.standings[0].forEach((element) => {
-        //     const teamId = element.team.id;
-        //     const teamName = element.team.name;
-        //     // team score
-        //     const teamScore = `https://api-football-beta.p.rapidapi.com/fixtures?season=2022&league=39&team=${teamId}`;
-        //     // Prev and Next match
-        //     const nextMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&next=1&team=${teamId}`;
-        //     const prevMatchUrl = `https://api-football-beta.p.rapidapi.com/fixtures?league=39&last=5&team=${teamId}`;
-
-        //     const fixtures = {
-        //         uppcomingMatch: undefined,
-        //         previousMatch: undefined
-        //     };
-
-        //     fetch(nextMatchUrl, options)
-        //         .then((response) => response.json())
-        //         .then((data) => {
-        //             nextMatch = data.response[0];
-        //             fixtures.uppcomingMatch = nextMatch;
-        //             if (nextMatch === undefined) {
-        //                 nextMatch = {
-        //                     fixture: {
-        //                         date: "--.--.----",
-        //                         timestamp: "10201021",
-        //                     },
-        //                     teams: {
-        //                         home: {
-        //                             name: "home team",
-        //                             logo: "style/icons/unknownTeam.png",
-        //                         },
-        //                         away: {
-        //                             name: "away team",
-        //                             logo: "style/icons/unknownTeam.png",
-        //                         },
-        //                     },
-        //                 };
-        //             }
-        //         })
-        //         .then(() => {
-        //             fetch(prevMatchUrl, options)
-        //                 .then((response) => response.json())
-        //                 .then((data) => {
-        //                     prevMatch = data.response;
-        //                 })
-        //                 .then(() => {
-        //                     fixtures.previousMatch = prevMatch;
-        //                     saveAsJSON(
-        //                         fixtures,
-        //                         `PrevAndNext/${teamName}prevAndNextMatch`
-        //                     );
-        //                 });
-        //         });
-        // });
-
-        await fetch(lineupURL, options)
-            .then((response) => response.json())
-            .then((data) => {
-                lineup = data;
-                
-            });
+       
 
         //------------------------------Testing-----------------------------------
     } catch (error) {
@@ -113,6 +121,5 @@ async function fetchData() {
 // ---------------------------------------------------------------------------
 // -----------------------saving data to JSON---------------------------------
 fetchData().then(() => {
-    // saveAsJSON(table, "table");
-    saveAsJSON(lineup, 'test/test');
+    saveAsJSON(table, "table");
 });

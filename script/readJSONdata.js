@@ -1,4 +1,4 @@
-let table, fixtures, matches;
+let table, fixtures, matches, lineup;
 // --------- pobieranie danych z JSON---------------------------------------------
 async function fetchData() {
     try {
@@ -12,6 +12,12 @@ async function fetchData() {
             .then((response) => response.json())
             .then((data) => {
                 fixtures = data;
+            });
+
+        await fetch("JSONfiles/test/test.json")
+            .then((response) => response.json())
+            .then((data) => {
+                lineup = data;
             });
     } catch (error) {
         console.log(error);
@@ -108,6 +114,8 @@ fetchData().then(() => {
                     awayTeamLogo.src = `${prevMatch.teams.away.logo}`;
                 }
             }
+            // id of last played match
+            // console.log(matches.previousMatch[0].fixture.id)
         });
 
         // -----------------------------------------------------------------------
@@ -129,6 +137,28 @@ fetchData().then(() => {
             expandable.classList.toggle("invisible");
         });
     });
+    //---------------------------------------------------------------------------
+    //---------------------------line ups----------------------------------------
+
+    // const homeTeamLineup = lineup[0];
+    // const awayTeamLineup = lineup[1];
+
+    // console.log(Object.keys(homeTeamLineup.startXI[0].player))
+    // console.log(homeTeamLineup.formation)
+
+    // console.log('Starting XI');
+    // homeTeamLineup.startXI.forEach((player) => {
+    //     console.log(`${player.player.number} ${player.player.name}`)
+    // })
+
+    // console.log('Substitutes');
+    // homeTeamLineup.substitutes.forEach((player) => {
+    //     console.log(`${player.player.number} ${player.player.name}`)
+    // })
+
+    // console.log('Coach');
+    // console.log(homeTeamLineup.coach.name)
+
     //---------------------------------------------------------------------------
 });
 
