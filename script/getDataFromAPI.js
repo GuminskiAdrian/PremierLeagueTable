@@ -1,4 +1,5 @@
 // zapisywanie danych z API do pliku JSOn żeby nie pobierać za każdym ---------------------------razem--------------------------------
+const { match } = require("assert");
 const fs = require("fs");
 require("dotenv").config();
 const apiKey = process.env.APIkey;
@@ -32,7 +33,7 @@ const options = {
 };
 
 // ---------------------------Fetching data-----------------------------------
-let table, nextMatch, prevMatch, lineup;
+let table, nextMatch, prevMatch, lineup, matchStatistics;
 async function fetchData() {
     try {
         await fetch(tableURL, options)
@@ -105,12 +106,26 @@ async function fetchData() {
                                         `lastGameSquads/lastGame${teamName}Squad`
                                     );
                                 });
+                        })
+                        .then(() => {
+                            const statsURL = `https://api-football-beta.p.rapidapi.com/fixtures/statistics?fixture=${fixtures.previousMatch[0].fixture.id}`;
+                            fetch(statsURL, options)
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    matchStatistics = data.response;
+                                })
+                                .then(() => {
+                                    saveAsJSON(
+                                        matchStatistics,
+                                        `matchStatistics/matchStats${teamName}`
+                                    );
+                                });
                         });
                 });
         });
 
         //------------------------------Testing-----------------------------------
-       
+        
 
         //------------------------------Testing-----------------------------------
     } catch (error) {
