@@ -8,7 +8,7 @@
 
         <!-- wczytywanie zapisanych danych z plików json -->
         <script src="script/readJSONdata.js" async></script>
-       
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -119,15 +119,11 @@
                                         <p class="date">00.00.0000</p>
                                         <div class="teams home">
                                             <p>Home team</p>
-                                            <img
-                                                src=""
-                                                alt="home team logo" />
+                                            <img src="" alt="home team logo" />
                                         </div>
                                         <p class="final">00:00</p>
                                         <div class="teams away">
-                                            <img
-                                                src=""
-                                                alt="away team logo" />
+                                            <img src="" alt="away team logo" />
                                             <p>Away Team</p>
                                         </div>
                                     </div>
@@ -151,12 +147,13 @@
                                 </div>
 
                                 <div class="rightSide">
-                                    <div class="button">
+                                    <div class="button lastGameSquadBttn" >
                                         <p>Last Game Squad</p>
                                     </div>
-                                    <div class="button">
+                                    <div class="button matchStatsBttn" >
                                         <p>Statistics</p>
                                     </div>
+                                    
                                     <div class="squadList" id="homeSquadList">
                                         <h3>Starting XI</h3>
                                         <p>1 Player</p>
@@ -208,6 +205,36 @@
                                         <p>20 player</p>
                                         <h3>Coach</h3>
                                         <p>Coach name</p>
+                                    </div>
+                                    
+                                    <div class="matchStats invisible" id="matchStats">
+                                        <div class="stat" id="stat">
+                                            <p>total shots</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>on goal</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>off goal</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>fouls</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>ball posession</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>total passes</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>passes %</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>yellow cards</p>
+                                        </div>
+                                        <div class="stat" id="stat">
+                                            <p>red cards</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

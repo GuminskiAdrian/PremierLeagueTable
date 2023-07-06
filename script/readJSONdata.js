@@ -13,7 +13,6 @@ async function fetchData() {
             .then((data) => {
                 fixtures = data;
             });
-
     } catch (error) {
         console.log(error);
     }
@@ -124,19 +123,23 @@ fetchData().then(() => {
         lastMatchLineup(team.team.name).then(() => {
             const homeTeamLineup = lineup[0];
             const awayTeamLineup = lineup[1];
-            
+
             const homeListOfPlayers = homeSquadList.querySelectorAll("p");
             const awayListOfPlayers = awaySquadList.querySelectorAll("p");
 
             squadList(homeTeamLineup, homeListOfPlayers);
             squadList(awayTeamLineup, awayListOfPlayers);
-            function squadList(sideLineup, sideList){sideList
+            function squadList(sideLineup, sideList) {
+                sideList;
                 for (let i = 0; i < 21; i++) {
                     if (i < 11) {
                         sideList[i].textContent =
                             sideLineup.startXI[i].player.name;
                     } else if (i >= 11 && i < 20) {
-                        if (typeof sideLineup.substitutes[i - 11] === 'undefined') {
+                        if (
+                            typeof sideLineup.substitutes[i - 11] ===
+                            "undefined"
+                        ) {
                             sideList[i].textContent = "";
                         } else {
                             sideList[i].textContent =
@@ -147,10 +150,6 @@ fetchData().then(() => {
                     }
                 }
             }
-
-            
-
-            
         });
 
         // -----------------------------------------------------------------------
@@ -170,6 +169,25 @@ fetchData().then(() => {
             const currentRow = event.target.closest("tr");
             const expandable = currentRow.nextElementSibling;
             expandable.classList.toggle("invisible");
+        });
+    });
+
+    const matchStatsContainer = document.getElementsByClassName("matchStats");
+    const squadListContainer = document.getElementsByClassName("squadList");
+
+    const lastGameSquadBttn = document.querySelectorAll(".lastGameSquadBttn");
+    lastGameSquadBttn.forEach((squadBttn) => {
+        squadBttn.addEventListener("click", (event) => {
+            event.preventDefault();
+            changeSection(matchStatsContainer, squadListContainer);
+        });
+    });
+
+    const matchstatsBttn = document.querySelectorAll(".matchStatsBttn");
+    matchstatsBttn.forEach((statsBttn) => {
+        statsBttn.addEventListener("click", (event) => {
+            event.preventDefault();
+            changeSection(matchStatsContainer, squadListContainer);
         });
     });
     //---------------------------------------------------------------------------
@@ -193,4 +211,10 @@ function converTime(date) {
         dateFormated = "No upcoming matches planned yet";
     }
     return dateFormated;
+}
+
+function changeSection(element1, element2) {
+    element1[0].classList.toggle("invisible");
+    element2[0].classList.toggle("invisible");
+    element2[1].classList.toggle("invisible");
 }

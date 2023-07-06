@@ -78,10 +78,6 @@ td {
 }
 
 /* rozwijana sekcja poczatek */
-.invisible {
-    display: none;
-}
-
 .expandable {
     background-color: rgba(61, 24, 92, 0.7);
 }
@@ -91,7 +87,7 @@ td {
     display: flex;
     gap: 3%;
 }
-
+/* lewa strona */
 .leftSide {
     width: 48.5%;
     display: flex;
@@ -149,7 +145,8 @@ td {
     background-color: #3d185c;
     color: #fefefb;
 }
-
+/* koniec lewej strony */
+/* prawa strona */
 .rightSide {
     background-color: #fefefb;
     width: 48.5%;
@@ -176,8 +173,6 @@ td {
 }
 
 .squadList {
-    display: none;
-
     width: 85%;
     text-align: left;
     display: flex;
@@ -190,6 +185,23 @@ td {
     border-bottom: 1px solid #212c27;
     padding-bottom: 0.25rem;
     font-weight: bold;
+}
+/* koniec prawej strony */
+
+/* testing  */
+
+/* .squadList {
+    display: none;
+} */
+
+.matchStats {
+    border: 1px solid black;
+}
+
+/* koniec testow */
+
+.invisible {
+    display: none;
 }
 
 /* koniec rozwijanej sekcji */
