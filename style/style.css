@@ -123,7 +123,7 @@ td {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: clamp(0.4rem, 0.9rem , 1.4vw);
+    font-size: clamp(0.4rem, 0.9rem, 1.4vw);
 }
 
 .home {
@@ -195,9 +195,26 @@ td {
 } */
 
 .matchStats {
-    border: 1px solid black;
+    width: 100%;
 }
 
+.stat {
+    margin-block: 1.25rem;
+}
+
+.homeStats {
+    height: 1rem;
+    background-color: blue;
+    margin-left: auto;
+    width: 10%;
+}
+
+.awayStats {
+    height: 1rem;
+    background-color: red;
+    margin-right: auto;
+    width: 20%;
+}
 /* koniec testow */
 
 .invisible {

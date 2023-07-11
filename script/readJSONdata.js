@@ -179,7 +179,7 @@ fetchData().then(() => {
     lastGameSquadBttn.forEach((squadBttn) => {
         squadBttn.addEventListener("click", (event) => {
             event.preventDefault();
-            changeSection(matchStatsContainer, squadListContainer);
+            changeSectionVisability(matchStatsContainer, squadListContainer);
         });
     });
 
@@ -187,7 +187,7 @@ fetchData().then(() => {
     matchstatsBttn.forEach((statsBttn) => {
         statsBttn.addEventListener("click", (event) => {
             event.preventDefault();
-            changeSection(matchStatsContainer, squadListContainer);
+            changeSectionVisability(matchStatsContainer, squadListContainer);
         });
     });
     //---------------------------------------------------------------------------
@@ -213,8 +213,9 @@ function converTime(date) {
     return dateFormated;
 }
 
-function changeSection(element1, element2) {
+function changeSectionVisability(element1, element2 = 0) {
     element1[0].classList.toggle("invisible");
+    element1[1].classList.toggle("invisible");
     element2[0].classList.toggle("invisible");
     element2[1].classList.toggle("invisible");
 }
