@@ -34,6 +34,14 @@ async function lastMatchLineup(teamName) {
         });
 }
 
+async function lastMatchStats(teamName) {
+    await fetch(`JSONfiles/matchStatistics/matchStats${teamName}.json`)
+        .then((response) => response.json())
+        .then((data) => {
+            stats = data;
+        });
+}
+
 fetchData().then(() => {
     // --------- generowanie tabeli-----------------------------------------------
     const tableBody = document.getElementById("table-body");
@@ -129,29 +137,20 @@ fetchData().then(() => {
 
             squadList(homeTeamLineup, homeListOfPlayers);
             squadList(awayTeamLineup, awayListOfPlayers);
-            function squadList(sideLineup, sideList) {
-                sideList;
-                for (let i = 0; i < 21; i++) {
-                    if (i < 11) {
-                        sideList[i].textContent =
-                            sideLineup.startXI[i].player.name;
-                    } else if (i >= 11 && i < 20) {
-                        if (
-                            typeof sideLineup.substitutes[i - 11] ===
-                            "undefined"
-                        ) {
-                            sideList[i].textContent = "";
-                        } else {
-                            sideList[i].textContent =
-                                sideLineup.substitutes[i - 11].player.name;
-                        }
-                    } else if (i == 20) {
-                        sideList[i].textContent = sideLineup.coach.name;
-                    }
-                }
-            }
         });
 
+        //---------------------wypełnianie statystyk------------------------------
+        lastMatchStats(team.team.name).then(() => {
+            const homeStats = stats[0];
+            const awayStats = stats[1];
+
+            const homeMatchStats = document.getElementById("homeMatchStats");
+            fillUpStats("Home", homeStats);
+            const awayMatchStats = document.getElementById("awayMatchStats");
+            fillUpStats("Away", awayStats);
+        });
+
+        //-----------------------------------------------------------------------
         // -----------------------------------------------------------------------
         teamData.setAttribute("class", "show");
         tableBody.appendChild(teamData);
@@ -218,4 +217,77 @@ function changeSectionVisability(element1, element2 = 0) {
     element1[1].classList.toggle("invisible");
     element2[0].classList.toggle("invisible");
     element2[1].classList.toggle("invisible");
+}
+
+function squadList(sideLineup, sideList) {
+    sideList;
+    for (let i = 0; i < 21; i++) {
+        if (i < 11) {
+            sideList[i].textContent = sideLineup.startXI[i].player.name;
+        } else if (i >= 11 && i < 20) {
+            if (typeof sideLineup.substitutes[i - 11] === "undefined") {
+                sideList[i].textContent = "";
+            } else {
+                sideList[i].textContent =
+                    sideLineup.substitutes[i - 11].player.name;
+            }
+        } else if (i == 20) {
+            sideList[i].textContent = sideLineup.coach.name;
+        }
+    }
+}
+
+function fillUpStats(side, stats) {
+    const totalShots = document.getElementById(`totalShots${side}`);
+    const onGoal = document.getElementById(`onGoal${side}`);
+    const offGoal = document.getElementById(`offGoal${side}`);
+    const fouls = document.getElementById(`fouls${side}`);
+    const ballPosession = document.getElementById(`ballPosession${side}`);
+    const totalPasses = document.getElementById(`totalPasses${side}`);
+    const passesPerc = document.getElementById(`passesPerc${side}`);
+    const yellowCards = document.getElementById(`yellowCards${side}`);
+    const redCards = document.getElementById(`redCards${side}`);
+
+    JSONballPosession =
+        stats.statistics[9].value == null ? 0 : stats.statistics[9].value;
+    JSONpassesPerc =
+        stats.statistics[15].value == null ? 0 : stats.statistics[15].value;
+    JSONtotalShots =
+        stats.statistics[2].value == null ? 0 : stats.statistics[2].value;
+    JSONonGoal =
+        stats.statistics[0].value == null ? 0 : stats.statistics[0].value;
+    JSONoffGoal =
+        stats.statistics[1].value == null ? 0 : stats.statistics[1].value;
+    JSONfouls =
+        stats.statistics[6].value == null ? 0 : stats.statistics[6].value;
+    JSONtotalPasses =
+        stats.statistics[13].value == null ? 0 : stats.statistics[13].value;
+    JSONyellowCards =
+        stats.statistics[10].value == null ? 0 : stats.statistics[10].value;
+    JSONredCards =
+        stats.statistics[11].value == null ? 0 : stats.statistics[11].value;
+
+    //percentage StatsPost
+    ballPosession.style.width = `${JSONballPosession}`;
+    passesPerc.style.width = `${JSONpassesPerc}`;
+    //numbers  StatsPost
+    totalShots.style.width = `${JSONtotalShots}%`;
+    onGoal.style.width = `${JSONonGoal}%`;
+    offGoal.style.width = `${JSONoffGoal}%`;
+    fouls.style.width = `${JSONfouls * 2}%`;
+    totalPasses.style.width = `${JSONtotalPasses / 10}%`;
+    yellowCards.style.width = `${JSONyellowCards * 2}%`;
+    redCards.style.width = `${JSONredCards * 2}%`;
+
+    //percentage StatsText
+    ballPosession.textContent = `${JSONballPosession}`;
+    passesPerc.textContent = `${JSONpassesPerc}`;
+    //numbers  StatsText
+    totalShots.textContent = `${JSONtotalShots}`;
+    onGoal.textContent = `${JSONonGoal}`;
+    offGoal.textContent = `${JSONoffGoal}`;
+    fouls.textContent = `${JSONfouls}`;
+    totalPasses.textContent = `${JSONtotalPasses}`;
+    yellowCards.textContent = `${JSONyellowCards}`;
+    redCards.textContent = `${JSONredCards}`;
 }

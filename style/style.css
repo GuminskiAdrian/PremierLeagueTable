@@ -206,14 +206,16 @@ td {
     height: 1rem;
     background-color: blue;
     margin-left: auto;
-    width: 10%;
+    width: 0;
+    color: white;
 }
 
 .awayStats {
     height: 1rem;
     background-color: red;
     margin-right: auto;
-    width: 20%;
+    width: 0;
+    color: white;
 }
 /* koniec testow */
 
