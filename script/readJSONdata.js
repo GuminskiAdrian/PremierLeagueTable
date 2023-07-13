@@ -134,23 +134,23 @@ fetchData().then(() => {
 
             const homeListOfPlayers = homeSquadList.querySelectorAll("p");
             const awayListOfPlayers = awaySquadList.querySelectorAll("p");
-
             squadList(homeTeamLineup, homeListOfPlayers);
             squadList(awayTeamLineup, awayListOfPlayers);
         });
-
+        //------------------------------------------------------------------------
         //---------------------wypełnianie statystyk------------------------------
+        const homeMatchStats = template.getElementById("matchStatsHome");
+        const awayMatchStats = template.getElementById("matchStatsAway");
         lastMatchStats(team.team.name).then(() => {
             const homeStats = stats[0];
             const awayStats = stats[1];
-
-            const homeMatchStats = document.getElementById("homeMatchStats");
-            fillUpStats("Home", homeStats);
-            const awayMatchStats = document.getElementById("awayMatchStats");
-            fillUpStats("Away", awayStats);
+            
+            
+            fillUpStats("Home", homeStats, homeMatchStats);
+            
+            fillUpStats("Away", awayStats, awayMatchStats);
         });
 
-        //-----------------------------------------------------------------------
         // -----------------------------------------------------------------------
         teamData.setAttribute("class", "show");
         tableBody.appendChild(teamData);
@@ -230,16 +230,16 @@ function squadList(sideLineup, sideList) {
     }
 }
 
-function fillUpStats(side, stats) {
-    const totalShots = document.getElementById(`totalShots${side}`);
-    const onGoal = document.getElementById(`onGoal${side}`);
-    const offGoal = document.getElementById(`offGoal${side}`);
-    const fouls = document.getElementById(`fouls${side}`);
-    const ballPosession = document.getElementById(`ballPosession${side}`);
-    const totalPasses = document.getElementById(`totalPasses${side}`);
-    const passesPerc = document.getElementById(`passesPerc${side}`);
-    const yellowCards = document.getElementById(`yellowCards${side}`);
-    const redCards = document.getElementById(`redCards${side}`);
+function fillUpStats(side, stats, statsContainer) {
+    const totalShots = statsContainer.querySelector(`#totalShots${side}`);
+    const onGoal = statsContainer.querySelector(`#onGoal${side}`);
+    const offGoal = statsContainer.querySelector(`#offGoal${side}`);
+    const fouls = statsContainer.querySelector(`#fouls${side}`);
+    const ballPosession = statsContainer.querySelector(`#ballPosession${side}`);
+    const totalPasses = statsContainer.querySelector(`#totalPasses${side}`);
+    const passesPerc = statsContainer.querySelector(`#passesPerc${side}`);
+    const yellowCards = statsContainer.querySelector(`#yellowCards${side}`);
+    const redCards = statsContainer.querySelector(`#redCards${side}`);
 
     JSONballPosession =
         stats.statistics[9].value == null ? 0 : stats.statistics[9].value;
