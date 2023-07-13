@@ -160,6 +160,7 @@ td {
 }
 
 .button {
+    grid-column: 1 / -1;
     align-self: center;
     font-weight: bold;
     border-radius: 0.25rem;
@@ -188,12 +189,6 @@ td {
 }
 /* koniec prawej strony */
 
-/* testing  */
-
-/* .squadList {
-    display: none;
-} */
-
 .matchStats {
     width: 100%;
 }
@@ -217,7 +212,6 @@ td {
     width: 0;
     color: white;
 }
-/* koniec testow */
 
 .invisible {
     display: none;

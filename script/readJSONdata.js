@@ -171,22 +171,11 @@ fetchData().then(() => {
         });
     });
 
-    const matchStatsContainer = document.getElementsByClassName("matchStats");
-    const squadListContainer = document.getElementsByClassName("squadList");
-
-    const lastGameSquadBttn = document.querySelectorAll(".lastGameSquadBttn");
-    lastGameSquadBttn.forEach((squadBttn) => {
+    const squadStatsBttn = document.querySelectorAll(".squadStatsBttn");
+    squadStatsBttn.forEach((squadBttn) => {
         squadBttn.addEventListener("click", (event) => {
-            event.preventDefault();
-            changeSectionVisability(matchStatsContainer, squadListContainer);
-        });
-    });
-
-    const matchstatsBttn = document.querySelectorAll(".matchStatsBttn");
-    matchstatsBttn.forEach((statsBttn) => {
-        statsBttn.addEventListener("click", (event) => {
-            event.preventDefault();
-            changeSectionVisability(matchStatsContainer, squadListContainer);
+            const closestDiv = squadBttn.nextElementSibling;
+            changeSectionVisability(closestDiv);
         });
     });
     //---------------------------------------------------------------------------
@@ -212,11 +201,15 @@ function converTime(date) {
     return dateFormated;
 }
 
-function changeSectionVisability(element1, element2 = 0) {
-    element1[0].classList.toggle("invisible");
-    element1[1].classList.toggle("invisible");
-    element2[0].classList.toggle("invisible");
-    element2[1].classList.toggle("invisible");
+function changeSectionVisability(element) {
+    const homeSquad = element;
+    const awaySquad = homeSquad.nextElementSibling;
+    const homeStats = awaySquad.nextElementSibling;
+    const awayStats = homeStats.nextElementSibling;
+    homeSquad.classList.toggle("invisible");
+    awaySquad.classList.toggle("invisible");
+    homeStats.classList.toggle("invisible");
+    awayStats.classList.toggle("invisible");
 }
 
 function squadList(sideLineup, sideList) {
