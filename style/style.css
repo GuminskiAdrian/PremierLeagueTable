@@ -21,28 +21,25 @@ header img {
 
 table {
     margin-left: 1.75rem;
-    background-color: rgba(61, 24, 92, 0.7);
+    background-color: rgba(61, 24, 92, 1);
     color: white;
     box-shadow: 6px -3px 22px -8px #3d185c;
-    background-image: linear-gradient(
-        180deg,
-        rgba(61, 24, 92, 1) 2%,
-        rgba(13, 58, 255, 0.8) 15%,
-        rgba(61, 24, 92, 0.8) 25%,
-        rgba(216, 25, 31, 0.8) 100%
-    );
 }
 
-.championsLeagueTeam{
-    background-color: rgba(13, 58, 255, 0.15);
+.championsLeagueTeam {
+    background-color: rgba(13, 58, 255, 0.8);
 }
 
 .europaLeagueTeam {
-    background-color: rgba(254, 106, 2, 0.5);
+    background-color: rgba(254, 106, 2, 0.8);
 }
 
 .conferenceLeagueTeam {
-    background-color: rgba(0, 190 , 19, 0.55);
+    background-color: rgba(0, 190, 19, 0.8);
+}
+
+.relegationZone {
+    background-color: rgba(216, 25, 31, 0.6);
 }
 
 table .teamNamesAndLogos {
@@ -89,7 +86,8 @@ td {
 
 /* rozwijana sekcja poczatek */
 .expandable {
-    background-color: rgba(61, 24, 92, 0.7);
+    background-color: rgba(61, 24, 92, 1);
+    color: #212c27;
 }
 
 .expandableFixtures {
@@ -107,7 +105,6 @@ td {
 
 .fixture {
     background-color: #fefefb;
-    color: #212c27;
     height: 5rem;
     width: 100%;
 
@@ -118,6 +115,19 @@ td {
     grid-template-rows: 1fr 3fr;
 
     border-radius: 0.5rem;
+}
+
+.fixture:nth-child(2) {
+    position: relative;
+}
+
+.fixture:nth-child(2)::after {
+    position: absolute;
+    content: '';
+    height: 5rem;
+    width: 9%;
+    background-color: #fefefb;
+    right: -7%;
 }
 
 .fixture img {
@@ -161,7 +171,6 @@ td {
     background-color: #fefefb;
     width: 48.5%;
     border-radius: 0.5rem;
-    color: #212c27;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -176,7 +185,7 @@ td {
     font-size: 1rem;
     border-radius: 0.25rem;
     border: none;
-    background-color: #C6E9AA;
+    background-color: #c6e9aa;
     width: 70%;
     height: 60%;
 }
@@ -215,18 +224,18 @@ td {
 
 .homeStats {
     height: 1rem;
-    background-color: #5049CF;
+    background-color: #5049cf;
     margin-left: auto;
     width: 0;
-    color: #C6E9AA;
+    color: #c6e9aa;
 }
 
 .awayStats {
     height: 1rem;
-    background-color: #C6E9AA;
+    background-color: #c6e9aa;
     margin-right: auto;
     width: 0;
-    color: #5049CF;
+    color: #5049cf;
 }
 
 .invisible {

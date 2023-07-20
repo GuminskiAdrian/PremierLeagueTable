@@ -161,6 +161,8 @@ fetchData().then(() => {
             teamData.classList.add("europaLeagueTeam");
         } else if (description.includes("Europa Conference League")) {
             teamData.classList.add("conferenceLeagueTeam");
+        } else if (description.includes("Relegation")) {
+            teamData.classList.add("relegationZone");
         }
         tableBody.appendChild(teamData);
         tableBody.appendChild(template);
