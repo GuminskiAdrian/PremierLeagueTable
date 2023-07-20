@@ -141,14 +141,14 @@ fetchData().then(() => {
         //---------------------wypełnianie statystyk------------------------------
         const homeMatchStats = template.getElementById("matchStatsHome");
         const awayMatchStats = template.getElementById("matchStatsAway");
+
         lastMatchStats(team.team.name).then(() => {
             const homeStats = stats[0];
             const awayStats = stats[1];
+            const summaryStats = sumedStats(homeStats, awayStats);
             
-            
-            fillUpStats("Home", homeStats, homeMatchStats);
-            
-            fillUpStats("Away", awayStats, awayMatchStats);
+            fillUpStats("Home", homeStats, homeMatchStats, summaryStats);
+            fillUpStats("Away", awayStats, awayMatchStats, summaryStats);
         });
 
         // -----------------------------------------------------------------------
@@ -230,7 +230,7 @@ function squadList(sideLineup, sideList) {
     }
 }
 
-function fillUpStats(side, stats, statsContainer) {
+function fillUpStats(side, stats, statsContainer, summaryStats) {
     const totalShots = statsContainer.querySelector(`#totalShots${side}`);
     const onGoal = statsContainer.querySelector(`#onGoal${side}`);
     const offGoal = statsContainer.querySelector(`#offGoal${side}`);
@@ -264,13 +264,13 @@ function fillUpStats(side, stats, statsContainer) {
     ballPosession.style.width = `${JSONballPosession}`;
     passesPerc.style.width = `${JSONpassesPerc}`;
     //numbers  StatsPost
-    totalShots.style.width = `${JSONtotalShots}%`;
-    onGoal.style.width = `${JSONonGoal}%`;
-    offGoal.style.width = `${JSONoffGoal}%`;
-    fouls.style.width = `${JSONfouls * 2}%`;
-    totalPasses.style.width = `${JSONtotalPasses / 10}%`;
-    yellowCards.style.width = `${JSONyellowCards * 2}%`;
-    redCards.style.width = `${JSONredCards * 2}%`;
+    totalShots.style.width = `${(JSONtotalShots / summaryStats[0][1]) * 100}%`;
+    onGoal.style.width = `${(JSONonGoal / summaryStats[1][1] * 100)}%`;
+    offGoal.style.width = `${(JSONoffGoal / summaryStats[2][1] * 100)}%`;
+    fouls.style.width = `${(JSONfouls / summaryStats[3][1] * 100)}%`;
+    totalPasses.style.width = `${(JSONtotalPasses / summaryStats[4][1] * 100)}%`;
+    yellowCards.style.width = `${(JSONyellowCards / summaryStats[5][1] * 100)}%`;
+    redCards.style.width = `${(JSONredCards / summaryStats[6][1] * 100)}%`;
 
     //percentage StatsText
     ballPosession.textContent = `${JSONballPosession}`;
@@ -283,4 +283,25 @@ function fillUpStats(side, stats, statsContainer) {
     totalPasses.textContent = `${JSONtotalPasses}`;
     yellowCards.textContent = `${JSONyellowCards}`;
     redCards.textContent = `${JSONredCards}`;
+}
+
+function sumedStats(home, away) {
+    const sumStats = [
+        ["totalShots"],
+        ["onGoal"],
+        ["offGoal"],
+        ["fouls"],
+        ["totalPasses"],
+        ["yellowCards"],
+        ["redCards"],
+    ];
+    sumStats[0][1] = home.statistics[2].value + away.statistics[2].value;
+    sumStats[1][1] = home.statistics[0].value + away.statistics[0].value;
+    sumStats[2][1] = home.statistics[1].value + away.statistics[1].value;
+    sumStats[3][1] = home.statistics[6].value + away.statistics[6].value;
+    sumStats[4][1] = home.statistics[13].value + away.statistics[13].value;
+    sumStats[5][1] = home.statistics[10].value + away.statistics[10].value;
+    sumStats[6][1] = home.statistics[11].value + away.statistics[11].value;
+
+    return sumStats;
 }

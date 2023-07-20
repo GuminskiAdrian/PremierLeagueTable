@@ -28,9 +28,7 @@ table {
         180deg,
         rgba(61, 24, 92, 1) 2%,
         rgba(13, 58, 255, 0.8) 15%,
-        rgba(255, 105, 0, 0.8) 28%,
-        rgba(0, 190, 20, 0.7) 35%,
-        rgba(61, 24, 92, 0.8) 39%,
+        rgba(61, 24, 92, 0.8) 25%,
         rgba(216, 25, 31, 0.8) 100%
     );
 }
@@ -163,14 +161,13 @@ td {
     grid-column: 1 / -1;
     align-self: center;
     font-weight: bold;
+    font-size: 1rem;
     border-radius: 0.25rem;
-    background-color: #3d185c;
-    color: #fefefb;
+    border: none;
+    background-color: #C6E9AA;
+    color: #5049CF;
     width: 70%;
     height: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .squadList {
@@ -190,7 +187,15 @@ td {
 /* koniec prawej strony */
 
 .matchStats {
-    width: 100%;
+    width: 90%;
+}
+
+.matchStatsHome {
+    justify-self: right;
+}
+
+.matchStatsAway {
+    justify-self: left;
 }
 
 .stat {
@@ -199,18 +204,18 @@ td {
 
 .homeStats {
     height: 1rem;
-    background-color: blue;
+    background-color: #5049CF;
     margin-left: auto;
     width: 0;
-    color: white;
+    color: #C6E9AA;
 }
 
 .awayStats {
     height: 1rem;
-    background-color: red;
+    background-color: #C6E9AA;
     margin-right: auto;
     width: 0;
-    color: white;
+    color: #5049CF;
 }
 
 .invisible {
