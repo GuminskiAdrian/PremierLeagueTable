@@ -33,6 +33,18 @@ table {
     );
 }
 
+.championsLeagueTeam{
+    background-color: rgba(13, 58, 255, 0.15);
+}
+
+.europaLeagueTeam {
+    background-color: rgba(254, 106, 2, 0.5);
+}
+
+.conferenceLeagueTeam {
+    background-color: rgba(0, 190 , 19, 0.55);
+}
+
 table .teamNamesAndLogos {
     text-align: left;
 }
@@ -165,7 +177,6 @@ td {
     border-radius: 0.25rem;
     border: none;
     background-color: #C6E9AA;
-    color: #5049CF;
     width: 70%;
     height: 60%;
 }

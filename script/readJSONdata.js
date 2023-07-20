@@ -146,13 +146,22 @@ fetchData().then(() => {
             const homeStats = stats[0];
             const awayStats = stats[1];
             const summaryStats = sumedStats(homeStats, awayStats);
-            
+
             fillUpStats("Home", homeStats, homeMatchStats, summaryStats);
             fillUpStats("Away", awayStats, awayMatchStats, summaryStats);
         });
 
         // -----------------------------------------------------------------------
         teamData.setAttribute("class", "show");
+        const description =
+            team.description == null ? "Premier League" : team.description;
+        if (description.includes("Champions League")) {
+            teamData.classList.add("championsLeagueTeam");
+        } else if (description.includes("Europa League")) {
+            teamData.classList.add("europaLeagueTeam");
+        } else if (description.includes("Europa Conference League")) {
+            teamData.classList.add("conferenceLeagueTeam");
+        }
         tableBody.appendChild(teamData);
         tableBody.appendChild(template);
 
@@ -265,12 +274,16 @@ function fillUpStats(side, stats, statsContainer, summaryStats) {
     passesPerc.style.width = `${JSONpassesPerc}`;
     //numbers  StatsPost
     totalShots.style.width = `${(JSONtotalShots / summaryStats[0][1]) * 100}%`;
-    onGoal.style.width = `${(JSONonGoal / summaryStats[1][1] * 100)}%`;
-    offGoal.style.width = `${(JSONoffGoal / summaryStats[2][1] * 100)}%`;
-    fouls.style.width = `${(JSONfouls / summaryStats[3][1] * 100)}%`;
-    totalPasses.style.width = `${(JSONtotalPasses / summaryStats[4][1] * 100)}%`;
-    yellowCards.style.width = `${(JSONyellowCards / summaryStats[5][1] * 100)}%`;
-    redCards.style.width = `${(JSONredCards / summaryStats[6][1] * 100)}%`;
+    onGoal.style.width = `${(JSONonGoal / summaryStats[1][1]) * 100}%`;
+    offGoal.style.width = `${(JSONoffGoal / summaryStats[2][1]) * 100}%`;
+    fouls.style.width = `${(JSONfouls / summaryStats[3][1]) * 100}%`;
+    totalPasses.style.width = `${
+        (JSONtotalPasses / summaryStats[4][1]) * 100
+    }%`;
+    yellowCards.style.width = `${
+        (JSONyellowCards / summaryStats[5][1]) * 100
+    }%`;
+    redCards.style.width = `${(JSONredCards / summaryStats[6][1]) * 100}%`;
 
     //percentage StatsText
     ballPosession.textContent = `${JSONballPosession}`;
