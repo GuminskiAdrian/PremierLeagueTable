@@ -182,11 +182,19 @@ fetchData().then(() => {
         });
     });
 
-    const squadStatsBttn = document.querySelectorAll(".squadStatsBttn");
-    squadStatsBttn.forEach((squadBttn) => {
-        squadBttn.addEventListener("click", (event) => {
-            const closestDiv = squadBttn.nextElementSibling;
-            changeSectionVisability(closestDiv);
+    const squadBttn = document.querySelectorAll(".squadBttn");
+    squadBttn.forEach((bttn) => {
+        bttn.addEventListener("click", (event) => {
+            const statsBttn = bttn.nextElementSibling;
+            const homeSquad = statsBttn.nextElementSibling;
+            changeSectionVisability(homeSquad, "remove", "add");
+        });
+    });
+    const statsBttn = document.querySelectorAll(".statsBttn");
+    statsBttn.forEach((bttn) => {
+        bttn.addEventListener("click", (event) => {
+            const homeSquad = bttn.nextElementSibling;
+            changeSectionVisability(homeSquad, "add", "remove");
         });
     });
     //---------------------------------------------------------------------------
@@ -212,15 +220,16 @@ function converTime(date) {
     return dateFormated;
 }
 
-function changeSectionVisability(element) {
-    const homeSquad = element;
+function changeSectionVisability(firstDiv, oppOnSquads, oppOnStats) {
+    const homeSquad = firstDiv;
     const awaySquad = homeSquad.nextElementSibling;
     const homeStats = awaySquad.nextElementSibling;
     const awayStats = homeStats.nextElementSibling;
-    homeSquad.classList.toggle("invisible");
-    awaySquad.classList.toggle("invisible");
-    homeStats.classList.toggle("invisible");
-    awayStats.classList.toggle("invisible");
+    
+    homeSquad.classList[oppOnSquads]("invisible");
+    awaySquad.classList[oppOnSquads]("invisible");
+    homeStats.classList[oppOnStats]("invisible");
+    awayStats.classList[oppOnStats]("invisible");
 }
 
 function squadList(sideLineup, sideList) {
